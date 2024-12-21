@@ -223,7 +223,7 @@ Adapted from Example 6.6 (page 106) from [Reinforcement Learning: An Introductio
 
 ###   result
 
-<img src="https://github.com/user-attachments/assets/8a4f3c1f-1fe3-417c-9e74-6c783fdb6343">
+<img src="https://github.com/user-attachments/assets/63bf6cef-162b-4576-941e-c559f0c1aa9e">
 <img src="https://github.com/user-attachments/assets/48fcb2d7-b718-45b6-b7fc-9adc97b120d9">
 
 
