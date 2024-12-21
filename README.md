@@ -1,6 +1,7 @@
 # Assignment-Three-Tabular-Q-Learning-Algorithm
+## 🚀 Overview
+This project implements a reinforcement learning solution for the Cliff Walking environment using both standard Q-learning and epsilon-greedy approaches. The implementation provides comprehensive training, analysis, and visualization capabilities for comparing different Q-learning strategies.
 
-🚀 developing a reinforcement learning agent using Tabular Q-learning to control the actions of a virtual agent in the Cliff Walking environment.
 
 <img src="https://github.com/user-attachments/assets/311743b4-d552-423d-9ac8-4423cc8619a3">
 
@@ -10,35 +11,65 @@ algorithm and one with the epsilon-greedy algorithm. Evaluate the performance of
 using appropriate metrics and plot the learning curve.
 
 ## The Cliff Walking Environment
+## 📋 Features
+- **Dual Implementation**: Both standard Q-learning and epsilon-greedy approaches
+- **Automated Training**: Configurable training parameters with progress tracking
+- **Performance Metrics**: Comprehensive metrics including rewards, steps, and success rates
+- **Visualization Tools**: Advanced plotting capabilities with reward curves and Q-value heatmaps
+- **Flexible Configuration**: Easily adjustable hyperparameters
+- **Progress Monitoring**: Real-time training progress logging
 
-This is a simple implementation of the Gridworld Cliff reinforcement learning task.
-Adapted from Example 6.6 (page 106) from [Reinforcement Learning: An Introduction by Sutton and Barto](http://incompleteideas.net/book/bookdraft2018jan1.pdf).
+## 🔧 Installation
 
-## Description
+### Prerequisites
+- Python 3.8+
+- OpenAI Gym
+- NumPy
+- Matplotlib
+- Seaborn
 
-The board is a 4x12 matrix, with (using NumPy matrix indexing):
+```bash
+pip install gym numpy matplotlib seaborn
+```
 
-    [3, 0] as the start at bottom-left
+## 💻 Usage
 
-    [3, 11] as the goal at bottom-right
+### Basic Usage
+```python
+from cliff_walking import CliffWalkingExperiment
 
-    [3, 1..10] as the cliff at bottom-center
+# Create experiment instance
+experiment = CliffWalkingExperiment("My Experiment")
 
+# Train the agents
+results = experiment.train()
 
-Actions
+# Visualize results
+experiment.visualize_results()
+```
 
-There are 4 discrete deterministic actions:
+### Configuration
+You can customize the training parameters when initializing the experiment:
 
-    0: move up
+```python
+params = {
+    'alpha': 0.1,           # Learning rate
+    'gamma': 0.99,          # Discount factor
+    'epsilon': 0.1,         # Initial exploration rate
+    'decay_rate': 0.995,    # Epsilon decay rate
+    'min_epsilon': 0.01,    # Minimum exploration rate
+    'episodes': 500         # Number of training episodes
+}
 
-    1: move right
+experiment = CliffWalkingExperiment(exp_name="Custom Experiment")
+experiment.params = params
+```
 
-    2: move down
+## 🌟 The Cliff Walking Environment
 
-    3: move left
+The Cliff Walking task is a classic reinforcement learning problem from Sutton and Barto's book "Reinforcement Learning: An Introduction" (Example 6.6, page 106).
 
-Observations
-
+### Observations
 There are 3x12 + 1 possible states. In fact, the agent cannot be at the cliff, nor at the goal (as this results in the end of the episode). It remains all the positions of the first 3 rows plus the bottom-left cell. The observation is simply the current position encoded as flattened index.
 Reward
 
@@ -50,11 +81,54 @@ gym.make('CliffWalking-v0')
 Version History
 
     v0: Initial version release
+    ## Description
 
-## Overview of Q-learning 
+
+### Environment Details
+- **Grid Size**: 4x12 matrix
+- **Start Position**: [3, 0] (bottom-left)
+- **Goal Position**: [3, 11] (bottom-right)
+- **Cliff**: [3, 1..10] (bottom-center)
+
+### Actions
+Four discrete deterministic actions:
+- 0: Move up
+- 1: Move right
+- 2: Move down
+- 3: Move left
+
+### Rewards
+- -1 per time step
+- -100 for stepping into the cliff
+- Episode ends upon reaching the goal or falling off the cliff
+
+## 📊 Implementation Details
+
+### Overview of Q-learning 
 
 Q-learning is an off-policy RL algorithm that learns the value of the optimal action independently of the policy being followed. It aims to learn the optimal action-value function, Q*(s,a) which gives the maximum expected future reward for an action a taken in state s. The update rule for Q-learning is:
 Q(s_t, a_t) \leftarrow Q(s_t, a_t) + \alpha (r_{t+1} + \gamma \max_{a'}Q(s_{t+1}a') - Q(s_t, a_t))
+
+### Q-Learning Algorithm
+The implementation uses the Q-learning update rule:
+
+```
+Q(s,a) ← Q(s,a) + α[r + γ max_a' Q(s',a') - Q(s,a)]
+```
+
+Where:
+- `s`: Current state
+- `a`: Current action
+- `r`: Reward
+- `s'`: Next state
+- `α`: Learning rate
+- `γ`: Discount factor
+
+### Epsilon-Greedy Strategy
+The epsilon-greedy approach balances exploration and exploitation:
+- With probability ε: Choose random action (exploration)
+- With probability 1-ε: Choose action with highest Q-value (exploitation)
+- ε decays over time to reduce exploration
 
 ### Update Rules
 
@@ -136,26 +210,35 @@ def q_learning():
 
 Tests the learned policies by running a single episode using the learned Q-tables and prints the total rewards received.
 
+## 📈 Performance Metrics
+
+The implementation tracks several key metrics:
+- Episode rewards
+- Q-value evolution
+
+## 🎯 Results Visualization
+This is a simple implementation of the Gridworld Cliff reinforcement learning task.
+Adapted from Example 6.6 (page 106) from [Reinforcement Learning: An Introduction by Sutton and Barto](http://incompleteideas.net/book/bookdraft2018jan1.pdf).
+
+
 ###   result
 
 <img src="https://github.com/user-attachments/assets/8a4f3c1f-1fe3-417c-9e74-6c783fdb6343">
+<img src="https://github.com/user-attachments/assets/48fcb2d7-b718-45b6-b7fc-9adc97b120d9">
 
 
 
+The `visualize_results()` method provides comprehensive visualization including:
+- Reward curves for both approaches
+- Q-value heatmaps
 
+## 🤝 Contributing
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-
-
-
-
-
-
-
-
-
-
-
-
+## ✨ Acknowledgments
+- Based on OpenAI Gym's Cliff Walking environment
+- Inspired by Sutton and Barto's Reinforcement Learning textbook
+- Implementation structure influenced by modern RL practices
 
 
 
